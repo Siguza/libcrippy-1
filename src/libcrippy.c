@@ -239,20 +239,19 @@ int plist_write(const char* path, plist_t plist, plist_format_t format) {
 void print_progress_real(double progress, int flush)
 {
 	int i = 0;
-	PRINT_VERBOSE(1, "\r[");
+	fprintf(stderr, "\r[");
 	for(i = 0; i < 50; i++) {
 		if(i < progress / 2) {
-			PRINT_VERBOSE(1, "=");
+			fprintf(stderr, "=");
 		} else {
-			PRINT_VERBOSE(1, " ");
+			fprintf(stderr, " ");
 		}
 	}
-	PRINT_VERBOSE(1, "] %3.0f%%", progress);
+	fprintf(stderr, "] %3.0f%%", progress);
 
 	if (flush > 0) {
 		fflush(stdout);
 		if (progress == 100)
-			PRINT_VERBOSE(1, "\n");
+			fprintf(stderr, "\n");
 	}
 }
-
