@@ -1,4 +1,4 @@
-AM_CFLAGS = -I./include -I../include $(libplist_CFLAGS)
+AM_CFLAGS = -I$(top_srcdir)/include $(libplist_CFLAGS)
 AM_LDFLAGS = $(libplist_LIBS)
 
 lib_LTLIBRARIES = libcrippy-1.0.la
