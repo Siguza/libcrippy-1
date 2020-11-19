@@ -17,6 +17,11 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include <libcrippy-1.0/boolean.h>
 #include <libcrippy-1.0/libcrippy.h>
 
@@ -180,27 +185,27 @@ int plist_read(const char* path, plist_t* plist) {
 	int x = 0;
 	unsigned int length = 0;
 	unsigned char* buffer = NULL;
-    
+
 	if (!path) {
 		return -1;
 	}
-    
+
 	x = file_read(path, &buffer, &length);
 	if (x < 0 || buffer == NULL || length <= 0) {
 		return -1;
 	}
-    
+
 	if ((length > 8) && (memcmp(buffer, "bplist00", 8) == 0)) {
 		plist_from_bin(buffer, length, plist);
 	} else {
 		plist_from_xml(buffer, length, plist);
 	}
-    
+
 	if (buffer) {
 		free(buffer);
 		buffer = NULL;
 	}
-    
+
 	return 0;
 }
 
@@ -208,11 +213,11 @@ int plist_write(const char* path, plist_t plist, plist_format_t format) {
 	int x = 0;
 	unsigned int length = 0;
 	unsigned char* buffer = NULL;
-    
+
 	if (!plist || !path) {
 		return -1;
 	}
-    
+
 	if (format == PLIST_FORMAT_XML) {
 		plist_to_xml(plist, &buffer, &length);
 	} else if (format == PLIST_FORMAT_BINARY) {
@@ -220,18 +225,18 @@ int plist_write(const char* path, plist_t plist, plist_format_t format) {
 	} else {
 		return -1;
 	}
-    
-	x = file_write(path, &buffer, &length);
+
+	x = file_write(path, buffer, length);
 	if (x < 0) {
 		free(buffer);
 		return -1;
 	}
-    
+
 	if (buffer) {
 		free(buffer);
 		buffer = NULL;
 	}
-    
+
 	return 0;
 }
 

@@ -17,9 +17,12 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
+#include <ctype.h>
 #include <errno.h>
-#include <string.h>
+#include <libgen.h>
 #include <stdarg.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
@@ -68,10 +71,10 @@ char* build_path(const char* elem, ...) {
 		arg = va_arg(args, char*);
 	}
 	va_end(args);
-    
+
 	char* out = (char*)malloc(len);
 	strcpy(out, elem);
-    
+
 	va_start(args, elem);
 	arg = va_arg(args, char*);
 	while (arg) {

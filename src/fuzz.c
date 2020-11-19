@@ -17,6 +17,7 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
+#include <stdlib.h>
 
 int random_string(unsigned char* buffer, unsigned int size) {
 	unsigned int i = 0;
